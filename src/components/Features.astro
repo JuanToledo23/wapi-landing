@@ -1,0 +1,318 @@
+---
+const convos = [
+  { ini: 'MR', nombre: 'María Robles', msg: '¿Tienen cita para mañana?', canal: 'wa', activa: true },
+  { ini: 'JL', nombre: 'Jorge Luna', msg: 'Gracias, ahí nos vemos 🙌', canal: 'ig', activa: false },
+  { ini: 'PV', nombre: 'Paola Vega', msg: '¿Aceptan tarjeta?', canal: 'ms', activa: false },
+  { ini: 'CT', nombre: 'Carlos Tena', msg: '¿A qué hora abren hoy?', canal: 'wa', activa: false },
+];
+---
+
+<section class="features section">
+  <div class="features__inner">
+    <h2 class="features__titulo reveal">
+      Una sola herramienta. Dos experiencias distintas.
+    </h2>
+
+    <div class="features__tabs reveal" role="tablist" aria-label="Vistas de Wapi">
+      <button
+        class="tab is-active"
+        role="tab"
+        aria-selected="true"
+        data-tab="equipo"
+      >
+        Tu equipo
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="dueno">
+        Tú como dueño
+      </button>
+    </div>
+
+    <div class="features__grid reveal">
+      <!-- Texto con crossfade -->
+      <div class="features__texts">
+        <p class="feature-text is-active" data-text="equipo">
+          Todos los mensajes de WhatsApp, Instagram y Messenger en una sola
+          pantalla. Notas internas, historial completo del cliente,
+          notificaciones en el celular. Sin saltar entre apps, sin mensajes
+          perdidos.
+        </p>
+        <p class="feature-text" data-text="dueno">
+          Cada conversación visible en tiempo real. Alertas cuando algo lleva
+          demasiado tiempo sin respuesta. Reportes de atención por persona. Todo
+          desde tu celular, estés donde estés.
+        </p>
+      </div>
+
+      <!-- Visual estilizado de la bandeja -->
+      <div class="inbox" aria-hidden="true">
+        <div class="inbox__list">
+          {
+            convos.map((c) => (
+              <div class:list={['inbox__item', c.activa && 'is-active']}>
+                <span class="inbox__avatar">{c.ini}</span>
+                <span class="inbox__meta">
+                  <span class="inbox__name">{c.nombre}</span>
+                  <span class="inbox__msg">{c.msg}</span>
+                </span>
+                <span class:list={['inbox__canal', `canal--${c.canal}`]} />
+              </div>
+            ))
+          }
+        </div>
+        <div class="inbox__panel">
+          <div class="inbox__panel-head">
+            <span class="inbox__avatar inbox__avatar--lg">MR</span>
+            <span class="inbox__name">María Robles</span>
+            <span class="inbox__tag">Agente Wapi</span>
+          </div>
+          <div class="inbox__chat">
+            <div class="ib ib--in">¿Tienen cita para mañana?</div>
+            <div class="ib ib--out">
+              ¡Claro! Tenemos espacio mañana a las 11am y a las 4pm. ¿Cuál te
+              acomoda?
+            </div>
+            <div class="ib ib--note">Nota interna: cliente frecuente ⭐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    background: var(--color-surface);
+  }
+  .features__inner {
+    max-width: 1000px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+  .features__titulo {
+    font-weight: 700;
+    font-size: clamp(28px, 4.4vw, 40px);
+    text-align: center;
+    letter-spacing: -0.01em;
+  }
+
+  .features__tabs {
+    margin: 40px auto 0;
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .features__tabs {
+    display: flex;
+    width: fit-content;
+    margin-inline: auto;
+  }
+  .tab {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .tab.is-active {
+    background: var(--color-primary);
+    color: #fff;
+  }
+
+  .features__grid {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .features__texts {
+    position: relative;
+    min-height: 160px;
+  }
+  .feature-text {
+    position: absolute;
+    inset: 0;
+    font-size: 18px;
+    color: var(--color-text-secondary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .feature-text.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* -------- Inbox mockup -------- */
+  .inbox {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    background: var(--color-bg);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    min-height: 320px;
+  }
+  .inbox__list {
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 8px;
+  }
+  .inbox__item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .inbox__item.is-active {
+    background: rgba(242, 84, 45, 0.12);
+  }
+  .inbox__avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2a2f3d, #3a4150);
+    color: #c7cfe0;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .inbox__avatar--lg {
+    width: 30px;
+    height: 30px;
+  }
+  .inbox__meta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .inbox__name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  .inbox__msg {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .inbox__canal {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .canal--wa {
+    background: #25d366;
+  }
+  .canal--ig {
+    background: #e1306c;
+  }
+  .canal--ms {
+    background: #0084ff;
+  }
+
+  .inbox__panel {
+    display: flex;
+    flex-direction: column;
+  }
+  .inbox__panel-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .inbox__tag {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: rgba(242, 84, 45, 0.12);
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+  .inbox__chat {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ib {
+    max-width: 85%;
+    font-size: 13px;
+    padding: 8px 11px;
+    border-radius: 10px;
+    line-height: 1.35;
+  }
+  .ib--in {
+    align-self: flex-start;
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+  .ib--out {
+    align-self: flex-end;
+    background: #005c4b;
+    color: #f4fff9;
+  }
+  .ib--note {
+    align-self: stretch;
+    background: rgba(255, 209, 102, 0.1);
+    border: 1px dashed rgba(255, 209, 102, 0.4);
+    color: #ffd166;
+    font-size: 12px;
+  }
+
+  @media (max-width: 860px) {
+    .features__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .features__texts {
+      min-height: 130px;
+    }
+  }
+  @media (max-width: 480px) {
+    .inbox {
+      grid-template-columns: 1fr;
+    }
+    .inbox__list {
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+  }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.features .tab');
+  const texts = document.querySelectorAll<HTMLElement>('.features .feature-text');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      tabs.forEach((t) => {
+        const active = t === tab;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', String(active));
+      });
+      texts.forEach((txt) => {
+        txt.classList.toggle('is-active', txt.dataset.text === target);
+      });
+    });
+  });
+</script>

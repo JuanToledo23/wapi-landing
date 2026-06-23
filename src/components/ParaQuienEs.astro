@@ -1,0 +1,61 @@
+---
+const afirmaciones = [
+  'Tu negocio recibe preguntas por WhatsApp todos los días.',
+  'Hay momentos en que nadie puede responder de inmediato.',
+  'Quieres saber cómo está siendo atendido tu cliente, pero no puedes ver las conversaciones.',
+];
+---
+
+<section id="para-quien-es" class="paraquien section">
+  <div class="paraquien__inner">
+    <h2 class="paraquien__titulo reveal">
+      Si recibes mensajes de clientes, Wapi es para ti.
+    </h2>
+
+    <ul class="paraquien__lista" data-reveal-group data-reveal-stagger="0.2">
+      {afirmaciones.map((a) => <li class="paraquien__item reveal">{a}</li>)}
+    </ul>
+
+    <p class="paraquien__remate reveal">
+      Clínicas, restaurantes, despachos, salones, tiendas, talleres, notarías,
+      gimnasios, inmobiliarias — si tus clientes te escriben, Wapi funciona para
+      tu negocio.
+    </p>
+  </div>
+</section>
+
+<style>
+  .paraquien {
+    background: var(--color-surface);
+  }
+  .paraquien__inner {
+    max-width: 720px;
+    margin-inline: auto;
+    padding-inline: 24px;
+    text-align: center;
+  }
+  .paraquien__titulo {
+    font-weight: 700;
+    font-size: clamp(28px, 4.4vw, 40px);
+    letter-spacing: -0.01em;
+  }
+  .paraquien__lista {
+    list-style: none;
+    margin: 48px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .paraquien__item {
+    font-size: 20px;
+    color: var(--color-text-secondary);
+  }
+  .paraquien__remate {
+    margin-top: 48px;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+---
+
+<section class="agente">
+  <div class="agente__inner">
+    <h2 class="agente__titulo reveal">
+      Como tu mejor empleado.<br />Pero disponible a las 3am.
+    </h2>
+
+    <div class="agente__lista" data-reveal-group data-reveal-stagger="0.15">
+      <div class="argumento reveal">
+        <p class="argumento__lead">Sabe todo lo que tú decides que sepa.</p>
+        <p class="argumento__texto">
+          Precios, servicios, políticas, excepciones, cómo manejar una queja. Si
+          tu empleado lo sabría, el agente también.
+        </p>
+      </div>
+
+      <div class="argumento reveal">
+        <p class="argumento__lead">Responde como tú quieres que responda.</p>
+        <p class="argumento__texto">
+          Tono formal o cercano, con el nombre de tu negocio, con tu estilo. No
+          suena a bot — suena a tu negocio.
+        </p>
+      </div>
+
+      <div class="argumento reveal">
+        <p class="argumento__lead">
+          Cuando necesitas entrar, entras.<br />
+          <span class="argumento__lead-sub"
+            >Cuando el agente lo detecta, avisa.</span
+          >
+        </p>
+        <p class="argumento__texto">
+          Tu equipo puede tomar cualquier conversación en el momento que quiera.
+          Y si el agente detecta que algo requiere atención humana, notifica de
+          inmediato — con todo el contexto de la conversación listo.
+        </p>
+      </div>
+    </div>
+
+    <p class="agente__remate reveal">
+      ¿Quieres ver cómo funciona para tu negocio? El agente de Wapi te está
+      esperando ahorita.
+    </p>
+    <div class="agente__cta reveal">
+      <WhatsAppButton text="Pregúntale al agente de Wapi" icon={true} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .agente {
+    background: #0f1117;
+    padding-block: clamp(80px, 12vw, 140px);
+  }
+  .agente__inner {
+    max-width: 800px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  .agente__titulo {
+    font-weight: 800;
+    font-size: clamp(36px, 6vw, 60px);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    text-align: center;
+  }
+
+  .agente__lista {
+    margin-top: clamp(56px, 8vw, 80px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 6vw, 56px);
+  }
+
+  .argumento__lead {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(22px, 3vw, 26px);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+  }
+  .argumento__lead-sub {
+    font-size: 0.82em;
+    color: var(--color-text-secondary);
+  }
+  .argumento__texto {
+    margin-top: 14px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: 60ch;
+  }
+
+  .agente__remate {
+    margin-top: clamp(56px, 8vw, 80px);
+    max-width: 32ch;
+    margin-inline: auto;
+    text-align: center;
+    font-size: clamp(17px, 2.2vw, 19px);
+    color: var(--color-text-secondary);
+  }
+  .agente__cta {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+  }
+</style>

@@ -1,0 +1,219 @@
+---
+import '../styles/global.css';
+import { SITE } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = SITE.title, description = SITE.description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={SITE.url} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta
+      property="og:description"
+      content="Concentra WhatsApp, Instagram y Messenger con un agente de IA que conoce tu negocio."
+    />
+    <meta property="og:url" content={SITE.url} />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Wapi" />
+    <meta
+      name="twitter:description"
+      content="Todos los mensajes de tu negocio en un solo lugar."
+    />
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- GSAP + ScrollTrigger (CDN, deferred para no bloquear el render) -->
+    <script
+      is:inline
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    ></script>
+    <script
+      is:inline
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+    ></script>
+
+    <!-- Marca <html> con js para revertir el fallback no-js -->
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+    </script>
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      import Lenis from 'lenis';
+      import { inject } from '@vercel/analytics';
+
+      inject();
+
+      const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches;
+
+      // Espera a que GSAP (CDN) esté disponible, con timeout de seguridad.
+      function waitForGsap(timeout = 4000): Promise<boolean> {
+        return new Promise((resolve) => {
+          const start = performance.now();
+          (function check() {
+            if ((window as any).gsap && (window as any).ScrollTrigger) {
+              resolve(true);
+            } else if (performance.now() - start > timeout) {
+              resolve(false);
+            } else {
+              requestAnimationFrame(check);
+            }
+          })();
+        });
+      }
+
+      function revealAllNow() {
+        document
+          .querySelectorAll<HTMLElement>('.reveal')
+          .forEach((el) => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          });
+      }
+
+      async function init() {
+        // --- Lenis smooth scroll ---
+        let lenis: Lenis | null = null;
+        if (!reduceMotion) {
+          lenis = new Lenis({ lerp: 0.1 });
+        }
+
+        const hasGsap = !reduceMotion && (await waitForGsap());
+
+        if (!hasGsap) {
+          // Sin GSAP (o reduce-motion): mostrar todo y mantener Lenis con RAF propio.
+          revealAllNow();
+          if (lenis) {
+            const raf = (time: number) => {
+              lenis!.raf(time);
+              requestAnimationFrame(raf);
+            };
+            requestAnimationFrame(raf);
+          }
+          return;
+        }
+
+        const gsap = (window as any).gsap;
+        const ScrollTrigger = (window as any).ScrollTrigger;
+        gsap.registerPlugin(ScrollTrigger);
+        document.documentElement.classList.add('gsap-ready');
+
+        // Integración Lenis <-> GSAP ticker (forma recomendada).
+        if (lenis) {
+          lenis.on('scroll', ScrollTrigger.update);
+          gsap.ticker.add((time: number) => lenis!.raf(time * 1000));
+          gsap.ticker.lagSmoothing(0);
+        }
+
+        // --- Reveals en grupo (stagger entre hijos) ---
+        // Usamos fromTo: el estado final (opacity:1) se aplica como estilo
+        // inline y gana sobre el `.reveal { opacity: 0 }` del CSS (anti-flash).
+        document
+          .querySelectorAll<HTMLElement>('[data-reveal-group]')
+          .forEach((group) => {
+            const children = group.querySelectorAll('.reveal');
+            if (!children.length) return;
+            const stagger = parseFloat(
+              group.dataset.revealStagger || '0.15',
+            );
+            gsap.fromTo(
+              children,
+              { opacity: 0, y: 40, scale: 0.985 },
+              {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.9,
+                ease: 'power3.out',
+                stagger,
+                scrollTrigger: { trigger: group, start: 'top 80%' },
+              },
+            );
+          });
+
+        // --- Reveals individuales (fuera de cualquier grupo) ---
+        const standalone = Array.from(
+          document.querySelectorAll<HTMLElement>('.reveal'),
+        ).filter((el) => !el.closest('[data-reveal-group]'));
+
+        standalone.forEach((el) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 40, scale: 0.985 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.9,
+              ease: 'power3.out',
+              scrollTrigger: { trigger: el, start: 'top 85%' },
+            },
+          );
+        });
+
+        ScrollTrigger.refresh();
+
+        // Smooth-scroll para anclas internas vía Lenis.
+        document
+          .querySelectorAll<HTMLAnchorElement>('a[href^="#"]')
+          .forEach((a) => {
+            a.addEventListener('click', (e) => {
+              const id = a.getAttribute('href');
+              if (!id || id === '#') return;
+              const target = document.querySelector(id);
+              if (!target) return;
+              e.preventDefault();
+              if (lenis) lenis.scrollTo(target as HTMLElement, { offset: -80 });
+              else target.scrollIntoView({ behavior: 'smooth' });
+            });
+          });
+      }
+
+      init().catch((err) => {
+        console.error('[wapi] init failed, revealing content', err);
+        revealAllNow();
+      });
+
+      // Red de seguridad: solo si GSAP nunca llegó a inicializarse mostramos
+      // todo. Si GSAP está activo, NO tocamos nada — los elementos bajo el fold
+      // están en opacity:0 esperando su ScrollTrigger (revelarlos aquí causaba
+      // un "parpadeo" al hacer scroll).
+      setTimeout(() => {
+        if (!document.documentElement.classList.contains('gsap-ready')) {
+          revealAllNow();
+        }
+      }, 3000);
+    </script>
+  </body>
+</html>

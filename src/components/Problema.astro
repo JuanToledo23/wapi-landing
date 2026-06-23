@@ -1,0 +1,78 @@
+---
+const afirmaciones = [
+  'Hay mensajes sin responder y no te enteraste hasta el día siguiente.',
+  'Un cliente preguntó precio a las 9pm. Nadie respondió. Ya no escribió.',
+  'No sabes si tu negocio está atendiendo bien porque no puedes ver las conversaciones.',
+];
+---
+
+<section class="problema">
+  <div class="problema__inner">
+    <h2 class="problema__apertura reveal">
+      Hay mensajes sin responder en tu negocio.<br />
+      <span class="problema__apertura-dim">Y cuando te das cuenta, ya es tarde.</span>
+    </h2>
+
+    <div class="problema__lista" data-reveal-group data-reveal-stagger="0.2">
+      {afirmaciones.map((texto) => <p class="problema__item reveal">{texto}</p>)}
+    </div>
+
+    <p class="problema__remate reveal">
+      El 78% de los clientes elige al primer negocio que responde. ¿Cuántas
+      veces no fuiste tú?
+    </p>
+  </div>
+</section>
+
+<style>
+  .problema {
+    background: #0f1117;
+    padding-block: clamp(80px, 12vw, 140px);
+  }
+  .problema__inner {
+    max-width: 800px;
+    margin-inline: auto;
+    padding-inline: 24px;
+    text-align: center;
+  }
+
+  .problema__apertura {
+    font-weight: 700;
+    font-size: clamp(28px, 4.4vw, 38px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .problema__apertura-dim {
+    color: var(--color-text-secondary);
+  }
+
+  .problema__lista {
+    margin-top: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+  .problema__item {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(24px, 3.4vw, 34px);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    text-wrap: balance;
+  }
+
+  .problema__remate {
+    margin-top: 72px;
+    margin-inline: auto;
+    max-width: 52ch;
+    font-size: clamp(16px, 2vw, 18px);
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 600px) {
+    .problema__lista {
+      gap: 48px;
+    }
+  }
+</style>

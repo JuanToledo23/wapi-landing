@@ -1,0 +1,60 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+---
+
+<section class="ctafinal section">
+  <div class="ctafinal__inner">
+    <h2 class="ctafinal__titulo reveal">
+      ¿Cuántos mensajes sin respuesta son demasiados?
+    </h2>
+    <p class="ctafinal__sub reveal">
+      Habla con nuestro agente ahorita — él te explica cómo funciona Wapi para
+      tu tipo de negocio y resuelve cualquier duda en este momento.
+    </p>
+    <div class="ctafinal__cta reveal">
+      <WhatsAppButton
+        text="Escríbenos por WhatsApp"
+        variant="invert"
+        icon={true}
+      />
+      <p class="ctafinal__nota">
+        Es IA, no un humano. Y eso es exactamente lo que te ofrecemos.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ctafinal {
+    background: var(--color-primary);
+  }
+  .ctafinal__inner {
+    max-width: 760px;
+    margin-inline: auto;
+    padding-inline: 24px;
+    text-align: center;
+  }
+  .ctafinal__titulo {
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 48px);
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .ctafinal__sub {
+    margin: 20px auto 0;
+    max-width: 40em;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .ctafinal__cta {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .ctafinal__nota {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+</style>

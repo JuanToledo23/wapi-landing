@@ -1,0 +1,591 @@
+---
+import logoIcono from '../assets/logo-icono.svg';
+import ondaW from '../assets/onda-w.svg';
+import WhatsAppButton from './WhatsAppButton.astro';
+---
+
+<section class="hero">
+  <img class="hero__wave" src={ondaW.src} alt="" aria-hidden="true" />
+
+  <div class="container hero__grid">
+    <!-- Columna izquierda: copy -->
+    <div class="hero__copy" data-reveal-group data-reveal-stagger="0.12">
+      <h1 class="hero__headline reveal">
+        ¿Cuántos clientes has perdido por un mensaje sin respuesta?
+      </h1>
+
+      <p class="hero__sub reveal">
+        Un solo lugar para tu WhatsApp, Instagram y Messenger, con un agente
+        entrenado para atender exactamente como lo haría tu mejor empleado —
+        disponible 24/7, con el tono y la información de tu negocio.
+      </p>
+
+      <p class="hero__refuerzo reveal">No uno genérico. Uno tuyo.</p>
+
+      <div class="hero__cta reveal">
+        <WhatsAppButton
+          text="Hablar con nuestro agente ahorita"
+          icon={true}
+        />
+        <p class="hero__cta-sub">
+          Es IA, no un humano. Y eso es exactamente lo que te ofrecemos.
+        </p>
+      </div>
+
+      <p class="hero__ancla reveal">
+        El 78% de los clientes elige al primer negocio que responde. ¿Cuántas
+        veces no fuiste tú?
+      </p>
+    </div>
+
+    <!-- Columna derecha: chat animado -->
+    <div class="hero__chat-wrap" id="chat-wrap">
+      <div class="chat" role="img" aria-label="Conversación de ejemplo entre un cliente y el agente de IA de Wapi para la Clínica Dental Robles">
+        <div class="chat__header">
+          <div class="chat__avatar">
+            <img src={logoIcono.src} alt="" aria-hidden="true" />
+          </div>
+          <div class="chat__title">
+            <strong>Clínica Dental Robles</strong>
+            <span class="chat__badge">
+              <i class="chat__dot"></i> Agente Wapi activo
+            </span>
+          </div>
+        </div>
+
+        <div class="chat__body" id="chat-body">
+          <!-- Turno 1 — cliente -->
+          <div class="row row--left t1">
+            <div class="typing"><span></span><span></span><span></span></div>
+          </div>
+          <div class="row row--left m1">
+            <div class="bubble bubble--in">
+              Buenas, ¿cuánto cuesta una limpieza dental?
+            </div>
+          </div>
+
+          <!-- Turno 2 — agente -->
+          <div class="row row--right t2">
+            <div class="typing typing--out"><span></span><span></span><span></span></div>
+          </div>
+          <div class="row row--right m2">
+            <div class="bubble bubble--out">
+              ¡Hola! Una limpieza cuesta $650 e incluye revisión sin costo.
+              Atendemos lunes a viernes de 9am a 7pm y sábados de 9am a 2pm.
+            </div>
+          </div>
+
+          <!-- Turno 3 — cliente -->
+          <div class="row row--left t3">
+            <div class="typing"><span></span><span></span><span></span></div>
+          </div>
+          <div class="row row--left m3">
+            <div class="bubble bubble--in">¿Y tienen estacionamiento?</div>
+          </div>
+
+          <!-- Turno 4 — agente -->
+          <div class="row row--right t4">
+            <div class="typing typing--out"><span></span><span></span><span></span></div>
+          </div>
+          <div class="row row--right m4">
+            <div class="bubble bubble--out">
+              Sí, contamos con estacionamiento gratuito en el edificio. ¿Hay algo
+              más en lo que te pueda ayudar? 😊
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-top: 128px;
+    padding-bottom: clamp(64px, 10vw, 120px);
+    background: var(--color-bg);
+  }
+
+  .hero__wave {
+    position: absolute;
+    top: 12%;
+    left: -10%;
+    width: 130%;
+    max-width: none;
+    opacity: 0.03;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .hero__headline {
+    font-weight: 800;
+    font-size: clamp(36px, 5.2vw, 64px);
+    letter-spacing: -0.02em;
+  }
+
+  .hero__sub {
+    margin-top: 24px;
+    max-width: 36em;
+    font-size: clamp(17px, 2.2vw, 20px);
+    color: var(--color-text-secondary);
+  }
+
+  .hero__refuerzo {
+    margin-top: 16px;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--color-primary);
+  }
+
+  .hero__cta {
+    margin-top: 32px;
+  }
+
+  .hero__cta-sub {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+  }
+
+  .hero__ancla {
+    margin-top: 56px;
+    max-width: 30em;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+
+  /* ---------------- Chat ---------------- */
+  .hero__chat-wrap {
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0.35s;
+  }
+  .hero__chat-wrap.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__chat-wrap {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .chat {
+    width: 100%;
+    max-width: 360px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #ece5dd;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .chat__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #075e54;
+    color: #fff;
+  }
+
+  .chat__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .chat__avatar img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .chat__title {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .chat__title strong {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .chat__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .chat__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #25d366;
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+    animation: pulse-dot 1.6s infinite;
+  }
+  @keyframes pulse-dot {
+    0% {
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+    }
+    70% {
+      box-shadow: 0 0 0 8px rgba(37, 211, 102, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+  }
+
+  .chat__body {
+    padding: 16px;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row {
+    display: flex;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+  }
+  .row--left {
+    justify-content: flex-start;
+  }
+  .row--right {
+    justify-content: flex-end;
+  }
+
+  .bubble {
+    max-width: 80%;
+    padding: 9px 13px;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+  }
+  .bubble--in {
+    background: #ffffff;
+    color: #1f2933;
+    border-top-left-radius: 2px;
+  }
+  .bubble--out {
+    background: #005c4b;
+    color: #f4fff9;
+    border-top-right-radius: 2px;
+  }
+
+  /* Indicador de "escribiendo" */
+  .typing {
+    display: inline-flex;
+    gap: 4px;
+    padding: 12px 14px;
+    background: #ffffff;
+    border-radius: 12px;
+    border-top-left-radius: 2px;
+  }
+  .typing--out {
+    background: #005c4b;
+    border-radius: 12px;
+    border-top-right-radius: 2px;
+  }
+  .typing span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #9aa3ad;
+    animation: blink 1.2s infinite ease-in-out;
+  }
+  .typing--out span {
+    background: rgba(255, 255, 255, 0.7);
+  }
+  .typing span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .typing span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  @keyframes blink {
+    0%,
+    60%,
+    100% {
+      opacity: 0.3;
+      transform: translateY(0);
+    }
+    30% {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+  }
+
+  /* -------- Timeline (total 10s) — corre solo con .chat--animating -------- */
+  /* Indicadores: aparecen, se mantienen, colapsan al llegar el mensaje */
+  .chat--animating .t1 {
+    animation: typing-show 10s ease forwards;
+  }
+  .chat--animating .m1 {
+    animation: msg-show-sm 10s ease forwards;
+  }
+  .chat--animating .t2 {
+    animation: typing-show-2 10s ease forwards;
+  }
+  .chat--animating .m2 {
+    animation: msg-show-lg-2 10s ease forwards;
+  }
+  .chat--animating .t3 {
+    animation: typing-show-3 10s ease forwards;
+  }
+  .chat--animating .m3 {
+    animation: msg-show-sm-3 10s ease forwards;
+  }
+  .chat--animating .t4 {
+    animation: typing-show-4 10s ease forwards;
+  }
+  .chat--animating .m4 {
+    animation: msg-show-lg-4 10s ease forwards;
+  }
+
+  @keyframes typing-show {
+    0%,
+    5% {
+      opacity: 0;
+      max-height: 0;
+      margin-bottom: 0;
+    }
+    6%,
+    13% {
+      opacity: 1;
+      max-height: 44px;
+      margin-bottom: 8px;
+    }
+    15%,
+    100% {
+      opacity: 0;
+      max-height: 0;
+      margin-bottom: 0;
+    }
+  }
+  @keyframes msg-show-sm {
+    0%,
+    13% {
+      opacity: 0;
+      max-height: 0;
+      transform: translateY(8px);
+      margin-bottom: 0;
+    }
+    16%,
+    100% {
+      opacity: 1;
+      max-height: 160px;
+      transform: translateY(0);
+      margin-bottom: 8px;
+    }
+  }
+  @keyframes typing-show-2 {
+    0%,
+    33% {
+      opacity: 0;
+      max-height: 0;
+      margin-bottom: 0;
+    }
+    34%,
+    41% {
+      opacity: 1;
+      max-height: 44px;
+      margin-bottom: 8px;
+    }
+    43%,
+    100% {
+      opacity: 0;
+      max-height: 0;
+      margin-bottom: 0;
+    }
+  }
+  @keyframes msg-show-lg-2 {
+    0%,
+    41% {
+      opacity: 0;
+      max-height: 0;
+      transform: translateY(8px);
+      margin-bottom: 0;
+    }
+    44%,
+    100% {
+      opacity: 1;
+      max-height: 260px;
+      transform: translateY(0);
+      margin-bottom: 8px;
+    }
+  }
+  @keyframes typing-show-3 {
+    0%,
+    56% {
+      opacity: 0;
+      max-height: 0;
+      margin-bottom: 0;
+    }
+    57%,
+    64% {
+      opacity: 1;
+      max-height: 44px;
+      margin-bottom: 8px;
+    }
+    66%,
+    100% {
+      opacity: 0;
+      max-height: 0;
+      margin-bottom: 0;
+    }
+  }
+  @keyframes msg-show-sm-3 {
+    0%,
+    64% {
+      opacity: 0;
+      max-height: 0;
+      transform: translateY(8px);
+      margin-bottom: 0;
+    }
+    67%,
+    100% {
+      opacity: 1;
+      max-height: 160px;
+      transform: translateY(0);
+      margin-bottom: 8px;
+    }
+  }
+  @keyframes typing-show-4 {
+    0%,
+    84% {
+      opacity: 0;
+      max-height: 0;
+      margin-bottom: 0;
+    }
+    85%,
+    92% {
+      opacity: 1;
+      max-height: 44px;
+      margin-bottom: 8px;
+    }
+    94%,
+    100% {
+      opacity: 0;
+      max-height: 0;
+      margin-bottom: 0;
+    }
+  }
+  @keyframes msg-show-lg-4 {
+    0%,
+    92% {
+      opacity: 0;
+      max-height: 0;
+      transform: translateY(8px);
+      margin-bottom: 0;
+    }
+    95%,
+    100% {
+      opacity: 1;
+      max-height: 260px;
+      transform: translateY(0);
+      margin-bottom: 0;
+    }
+  }
+
+  /* Si el usuario prefiere menos movimiento: mostrar todo el chat estático */
+  @media (prefers-reduced-motion: reduce) {
+    .row {
+      animation: none !important;
+      opacity: 1 !important;
+      max-height: none !important;
+      margin-bottom: 8px !important;
+    }
+    .t1,
+    .t2,
+    .t3,
+    .t4 {
+      display: none !important;
+    }
+    .typing span,
+    .chat__dot {
+      animation: none !important;
+    }
+  }
+
+  /* ---------------- Responsive ---------------- */
+  @media (max-width: 900px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .hero__copy {
+      text-align: left;
+    }
+    .hero__ancla {
+      margin-top: 32px;
+    }
+  }
+</style>
+
+<script>
+  const chatWrap = document.getElementById('chat-wrap');
+  const chatBody = document.getElementById('chat-body');
+
+  if (chatWrap && chatBody) {
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+
+    if (reduceMotion) {
+      chatWrap.classList.add('is-visible');
+    } else {
+      function startChatAnimation() {
+        chatBody!.classList.remove('chat--animating');
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            chatBody!.classList.add('chat--animating');
+          });
+        });
+      }
+
+      let loopId: ReturnType<typeof setInterval> | null = null;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) {
+            chatWrap.classList.add('is-visible');
+            setTimeout(() => {
+              startChatAnimation();
+              loopId = setInterval(startChatAnimation, 13000);
+            }, 700);
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.2 },
+      );
+
+      observer.observe(chatWrap);
+    }
+  }
+</script>

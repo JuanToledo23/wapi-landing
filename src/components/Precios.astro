@@ -1,0 +1,224 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+---
+
+<section id="precios" class="precios section">
+  <div class="precios__inner">
+    <h2 class="precios__titulo reveal">
+      Elige tu plan.<br />Sin sorpresas, sin letra chica.
+    </h2>
+    <p class="precios__sub reveal">
+      La configuración de tus canales está incluida en los dos planes. Nosotros
+      te guiamos desde cero.
+    </p>
+
+    <div class="precios__grid" data-reveal-group data-reveal-stagger="0.12">
+      <!-- Plan Esencial -->
+      <div class="plan reveal">
+        <h3 class="plan__nombre">Plan Esencial</h3>
+        <p class="plan__desc">Para negocios de 1 a 3 personas</p>
+        <p class="plan__precio">
+          $1,490 <span>MXN/mes</span>
+        </p>
+        <ul class="plan__features">
+          <li>WhatsApp, Instagram y Messenger en una sola bandeja</li>
+          <li>Hasta 3 usuarios</li>
+          <li>Agente de IA incluido</li>
+          <li>Supervisión en tiempo real</li>
+        </ul>
+        <WhatsAppButton
+          text="Empieza gratis — escríbenos por WhatsApp"
+          class="plan__cta"
+        />
+      </div>
+
+      <!-- Plan Crecimiento (destacado) -->
+      <div class="plan plan--destacado reveal">
+        <span class="plan__badge">Recomendado</span>
+        <h3 class="plan__nombre">Plan Crecimiento</h3>
+        <p class="plan__desc">Para negocios con más equipo y más volumen</p>
+        <p class="plan__precio">
+          $2,490 <span>MXN/mes</span>
+        </p>
+        <p class="plan__incluye">Incluye todo del Plan Esencial más:</p>
+        <ul class="plan__features">
+          <li>Hasta 8 usuarios</li>
+          <li>Agente de IA con mayor capacidad</li>
+          <li>Reportes por agente y alertas de tiempo de respuesta</li>
+        </ul>
+        <WhatsAppButton
+          text="Empieza gratis — escríbenos por WhatsApp"
+          class="plan__cta"
+        />
+      </div>
+    </div>
+
+    <ul class="precios__confianza reveal">
+      <li>14 días gratis</li>
+      <li>Configuración de todos tus canales incluida</li>
+      <li>Soporte en español desde el primer día</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .precios {
+    background: var(--color-bg);
+  }
+  .precios__inner {
+    max-width: 980px;
+    margin-inline: auto;
+    padding-inline: 24px;
+    text-align: center;
+  }
+  .precios__titulo {
+    font-weight: 700;
+    font-size: clamp(28px, 4.4vw, 40px);
+    letter-spacing: -0.01em;
+  }
+  .precios__sub {
+    margin: 16px auto 0;
+    max-width: 46em;
+    font-size: 18px;
+    color: var(--color-text-secondary);
+  }
+
+  .precios__grid {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 24px;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .plan {
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    border-radius: 16px;
+    background: rgba(26, 29, 39, 0.5);
+    border: 1px solid var(--color-surface);
+  }
+  .plan--destacado {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 24px 60px rgba(242, 84, 45, 0.12);
+  }
+  .plan__badge {
+    position: absolute;
+    top: -13px;
+    left: 32px;
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+  .plan__nombre {
+    font-weight: 700;
+    font-size: 22px;
+  }
+  .plan__desc {
+    margin-top: 6px;
+    color: var(--color-text-secondary);
+    font-size: 15px;
+  }
+  .plan__precio {
+    margin-top: 20px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 1;
+  }
+  .plan__precio span {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--color-text-secondary);
+  }
+  .plan__incluye {
+    margin-top: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+  .plan__features {
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  .plan__incluye + .plan__features {
+    margin-top: 12px;
+  }
+  .plan__features li {
+    position: relative;
+    padding-left: 28px;
+    font-size: 15px;
+    color: var(--color-text-secondary);
+  }
+  .plan__features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(242, 84, 45, 0.15);
+  }
+  .plan__features li::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 7px;
+    width: 6px;
+    height: 9px;
+    border: solid var(--color-primary);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .precios :global(.plan__cta) {
+    margin-top: 28px;
+    width: 100%;
+    min-height: 56px;
+    padding-inline: 20px;
+    font-size: 15px;
+    text-wrap: balance;
+  }
+
+  .precios__confianza {
+    list-style: none;
+    margin: 40px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 28px;
+  }
+  .precios__confianza li {
+    position: relative;
+    padding-left: 24px;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+  }
+  .precios__confianza li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  @media (max-width: 760px) {
+    .precios__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,132 @@
+---
+const pasos = [
+  {
+    num: '01',
+    titulo: 'Lo configuramos juntos',
+    texto:
+      'Tu cuenta de WhatsApp, Instagram y Messenger es tuya — nosotros te ayudamos a verificar tu negocio ante Meta y a conectar todo. Si no tienes un número de WhatsApp para tu negocio, te decimos exactamente cómo conseguirlo. Tú no necesitas saber nada técnico.',
+  },
+  {
+    num: '02',
+    titulo: 'Tu negocio responde desde un solo lugar',
+    texto:
+      'Tú, tu equipo, o el agente de IA — todos desde la misma pantalla, sin mensajes perdidos. WhatsApp, Instagram y Messenger en una sola bandeja.',
+  },
+  {
+    num: '03',
+    titulo: 'Tú ves todo en tiempo real',
+    texto:
+      'Cada conversación, cada respuesta, cada cliente. Desde tu celular, a cualquier hora. Sin depender de que alguien te cuente cómo va el negocio.',
+  },
+];
+---
+
+<section id="como-funciona" class="comofunciona">
+  <div class="comofunciona__inner">
+    <h2 class="comofunciona__titulo reveal">
+      Funciona desde el primer día.<br />Sin IT, sin complicaciones.
+    </h2>
+
+    <div class="pasos" data-reveal-group data-reveal-stagger="0.15">
+      {
+        pasos.map((p) => (
+          <div class="paso reveal">
+            <span class="paso__num" aria-hidden="true">
+              {p.num}
+            </span>
+            <div class="paso__contenido">
+              <h3 class="paso__titulo">{p.titulo}</h3>
+              <p class="paso__texto">{p.texto}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .comofunciona {
+    background: #1a1d27;
+    padding-block: clamp(80px, 12vw, 140px);
+  }
+  .comofunciona__inner {
+    max-width: 800px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+  .comofunciona__titulo {
+    font-weight: 700;
+    font-size: clamp(28px, 4.4vw, 40px);
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+
+  /* Timeline vertical que conecta los tres pasos */
+  .pasos {
+    position: relative;
+    margin-top: clamp(56px, 8vw, 80px);
+    padding-left: 44px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(56px, 8vw, 88px);
+  }
+  .pasos::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .paso {
+    position: relative;
+  }
+
+  /* Número gigante como textura de fondo */
+  .paso__num {
+    position: absolute;
+    top: -0.4em;
+    left: 4px;
+    z-index: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(120px, 19vw, 190px);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: var(--color-primary);
+    opacity: 0.18;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .paso__contenido {
+    position: relative;
+    z-index: 1;
+    padding-top: clamp(44px, 7vw, 72px);
+  }
+  .paso__titulo {
+    font-weight: 700;
+    font-size: clamp(21px, 3vw, 24px);
+    color: var(--color-white);
+    margin-bottom: 12px;
+  }
+  .paso__texto {
+    color: var(--color-text-secondary);
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 46ch;
+  }
+
+  @media (max-width: 600px) {
+    .pasos {
+      padding-left: 28px;
+    }
+    .paso__num {
+      font-size: clamp(96px, 28vw, 130px);
+      left: 0;
+    }
+  }
+</style>
