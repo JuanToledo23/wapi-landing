@@ -4,9 +4,19 @@ import WhatsAppButton from './WhatsAppButton.astro';
 
 <section class="agente">
   <div class="agente__inner">
-    <h2 class="agente__titulo reveal">
-      Como tu mejor empleado.<br />Pero disponible a las 3am.
-    </h2>
+    <div class="agente__col-izq">
+      <h2 class="agente__titulo reveal">
+        Como tu mejor empleado.<br />Pero disponible a las 3am.
+      </h2>
+
+      <p class="agente__remate reveal">
+        ¿Quieres ver cómo funciona para tu negocio? El agente de Wapi te está
+        esperando ahorita.
+      </p>
+      <div class="agente__cta reveal">
+        <WhatsAppButton text="Pregúntale al agente de Wapi" icon={true} />
+      </div>
+    </div>
 
     <div class="agente__lista" data-reveal-group data-reveal-stagger="0.15">
       <div class="argumento reveal">
@@ -39,14 +49,6 @@ import WhatsAppButton from './WhatsAppButton.astro';
         </p>
       </div>
     </div>
-
-    <p class="agente__remate reveal">
-      ¿Quieres ver cómo funciona para tu negocio? El agente de Wapi te está
-      esperando ahorita.
-    </p>
-    <div class="agente__cta reveal">
-      <WhatsAppButton text="Pregúntale al agente de Wapi" icon={true} />
-    </div>
   </div>
 </section>
 
@@ -57,9 +59,17 @@ import WhatsAppButton from './WhatsAppButton.astro';
     padding-block: clamp(80px, 12vw, 140px);
   }
   .agente__inner {
-    max-width: 800px;
+    max-width: 1080px;
     margin-inline: auto;
     padding-inline: 24px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(48px, 8vw, 72px);
+  }
+
+  /* Columna izquierda: título + remate + CTA */
+  .agente__col-izq {
+    min-width: 0;
   }
 
   /* Título de la sección MÁS dramático */
@@ -68,33 +78,49 @@ import WhatsAppButton from './WhatsAppButton.astro';
     font-size: clamp(40px, 7vw, 72px);
     line-height: 1;
     letter-spacing: -0.03em;
-    text-align: center;
+    text-align: left;
     background: linear-gradient(135deg, #eef2ff 0%, rgba(238, 242, 255, 0.7) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .agente__lista {
-    margin-top: clamp(56px, 8vw, 80px);
+  .agente__remate {
+    margin-top: 28px;
+    max-width: 32ch;
+    text-align: left;
+    font-size: clamp(17px, 2.2vw, 19px);
+    color: var(--color-text-secondary);
+  }
+  .agente__cta {
+    margin-top: 28px;
     display: flex;
-    flex-direction: column;
-    gap: clamp(48px, 6vw, 56px);
+    justify-content: flex-start;
   }
 
-  /* Cada argumento con separador editorial a la izquierda */
+  /* Columna derecha: argumentos como lista con separadores horizontales */
+  .agente__lista {
+    display: flex;
+    flex-direction: column;
+  }
+
   .argumento {
-    position: relative;
-    padding-left: 24px;
-    border-left: 1.5px solid rgba(242, 84, 45, 0.25);
+    padding-block: clamp(28px, 4vw, 36px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     transition: border-color 0.25s ease;
   }
+  .argumento:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+  .argumento:last-child {
+    padding-bottom: 0;
+  }
   .argumento:hover {
-    border-left-color: var(--color-primary);
+    border-top-color: rgba(242, 84, 45, 0.4);
   }
 
   .argumento__lead {
-    position: relative;
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(22px, 3vw, 26px);
@@ -114,17 +140,16 @@ import WhatsAppButton from './WhatsAppButton.astro';
     max-width: 60ch;
   }
 
-  .agente__remate {
-    margin-top: clamp(56px, 8vw, 80px);
-    max-width: 32ch;
-    margin-inline: auto;
-    text-align: center;
-    font-size: clamp(17px, 2.2vw, 19px);
-    color: var(--color-text-secondary);
-  }
-  .agente__cta {
-    margin-top: 28px;
-    display: flex;
-    justify-content: center;
+  /* Desktop: 2 columnas, columna izquierda sticky */
+  @media (min-width: 768px) {
+    .agente__inner {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(56px, 8vw, 96px);
+      align-items: start;
+    }
+    .agente__col-izq {
+      position: sticky;
+      top: 120px;
+    }
   }
 </style>

@@ -52,7 +52,7 @@ const pasos = [
     padding-block: clamp(80px, 12vw, 140px);
   }
   .comofunciona__inner {
-    max-width: 800px;
+    max-width: 1080px;
     margin-inline: auto;
     padding-inline: 24px;
   }
@@ -63,89 +63,51 @@ const pasos = [
     text-align: center;
   }
 
-  /* Timeline vertical que conecta los tres pasos */
+  /* Móvil: lista vertical con separadores horizontales */
   .pasos {
-    position: relative;
     margin-top: clamp(56px, 8vw, 80px);
-    padding-left: 44px;
     display: flex;
     flex-direction: column;
-    gap: clamp(56px, 8vw, 88px);
-  }
-  /* Línea vertical más atmosférica */
-  .pasos::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 10px;
-    bottom: 10px;
-    width: 1px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(242, 84, 45, 0.4) 20%,
-      rgba(242, 84, 45, 0.15) 80%,
-      transparent 100%
-    );
   }
 
   .paso {
-    position: relative;
+    padding-block: clamp(32px, 6vw, 40px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .paso:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+  .paso:last-child {
+    padding-bottom: 0;
   }
 
-  /* Punto de anclaje en la línea para cada paso */
-  .paso::before {
-    content: '';
-    position: absolute;
-    left: -48px; /* ajustar con el padding-left del .pasos */
-    top: calc(clamp(44px, 7vw, 72px) + 10px); /* alineado con el título */
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    box-shadow: 0 0 12px rgba(242, 84, 45, 0.5);
-    z-index: 1;
-  }
-
-  /* Número gigante como textura de fondo */
+  /* Número pequeño en círculo con borde naranja sutil */
   .paso__num {
-    position: absolute;
-    top: -0.4em;
-    left: 4px;
-    z-index: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(242, 84, 45, 0.4);
+    background: rgba(242, 84, 45, 0.06);
     font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(120px, 19vw, 190px);
-    line-height: 1;
-    letter-spacing: -0.05em;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.01em;
     color: var(--color-primary);
-    opacity: 0.18;
-    pointer-events: none;
-    user-select: none;
+    margin-bottom: 20px;
   }
 
   .paso__contenido {
-    position: relative;
-    z-index: 1;
-    padding-top: clamp(44px, 7vw, 72px);
+    min-width: 0;
   }
   .paso__titulo {
     font-weight: 700;
     font-size: clamp(21px, 3vw, 24px);
     color: var(--color-white);
     margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  /* Ancho de línea sutil a la izquierda del título */
-  .paso__titulo::before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 1.5px;
-    background: var(--color-primary);
-    flex-shrink: 0;
   }
   .paso__texto {
     color: var(--color-text-secondary);
@@ -154,16 +116,44 @@ const pasos = [
     max-width: 46ch;
   }
 
-  @media (max-width: 600px) {
+  /* Desktop: grid horizontal de 3 columnas con conectores y separadores */
+  @media (min-width: 768px) {
     .pasos {
-      padding-left: 28px;
+      flex-direction: row;
+      align-items: stretch;
     }
-    .paso::before {
-      left: -32px; /* re-alinear con el padding-left reducido */
+    .paso {
+      flex: 1;
+      position: relative;
+      padding-block: 0;
+      padding-inline: clamp(24px, 3vw, 40px);
+      border-top: none;
     }
+    /* Separador vertical entre columnas */
+    .paso + .paso {
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
     .paso__num {
-      font-size: clamp(96px, 28vw, 130px);
-      left: 0;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 24px;
+    }
+
+    /* Línea conectora del círculo de un paso al del siguiente */
+    .paso:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 22px; /* centro vertical del círculo (44px / 2) */
+      left: calc(clamp(24px, 3vw, 40px) + 52px); /* borde derecho del círculo + gap */
+      width: calc(100% - 52px); /* alcanza el círculo del paso siguiente */
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        rgba(242, 84, 45, 0.4),
+        rgba(242, 84, 45, 0.1)
+      );
+      pointer-events: none;
     }
   }
 </style>
