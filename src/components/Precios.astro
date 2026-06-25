@@ -102,9 +102,11 @@ import WhatsAppButton from './WhatsAppButton.astro';
   }
   .plan--destacado {
     position: relative;
-    background: var(--color-surface);
-    border: 1px solid var(--color-primary);
-    box-shadow: 0 24px 60px rgba(242, 84, 45, 0.12);
+    background: linear-gradient(145deg, #1f2335 0%, var(--color-surface) 100%);
+    border: 1px solid rgba(242, 84, 45, 0.5);
+    box-shadow:
+      0 24px 60px rgba(242, 84, 45, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
   .plan__badge {
     position: absolute;
@@ -112,9 +114,11 @@ import WhatsAppButton from './WhatsAppButton.astro';
     left: 32px;
     background: var(--color-primary);
     color: #fff;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    padding: 5px 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 14px;
     border-radius: 999px;
   }
   .plan__nombre {
@@ -130,14 +134,21 @@ import WhatsAppButton from './WhatsAppButton.astro';
     margin-top: 20px;
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: 40px;
+    font-size: clamp(44px, 6vw, 52px);
     line-height: 1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   .plan__precio span {
     font-family: var(--font-body);
     font-weight: 400;
     font-size: 15px;
     color: var(--color-text-secondary);
+    /* Anular el clip de gradiente del precio en el sufijo MXN/mes */
+    -webkit-text-fill-color: var(--color-text-secondary);
   }
   .plan__incluye {
     margin-top: 24px;

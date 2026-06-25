@@ -52,7 +52,8 @@ import WhatsAppButton from './WhatsAppButton.astro';
 
 <style>
   .agente {
-    background: #0f1117;
+    /* Fondo más profundo */
+    background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-deep) 100%);
     padding-block: clamp(80px, 12vw, 140px);
   }
   .agente__inner {
@@ -61,12 +62,17 @@ import WhatsAppButton from './WhatsAppButton.astro';
     padding-inline: 24px;
   }
 
+  /* Título de la sección MÁS dramático */
   .agente__titulo {
     font-weight: 800;
-    font-size: clamp(36px, 6vw, 60px);
-    line-height: 1.08;
-    letter-spacing: -0.025em;
+    font-size: clamp(40px, 7vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.03em;
     text-align: center;
+    background: linear-gradient(135deg, #eef2ff 0%, rgba(238, 242, 255, 0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .agente__lista {
@@ -76,7 +82,19 @@ import WhatsAppButton from './WhatsAppButton.astro';
     gap: clamp(48px, 6vw, 56px);
   }
 
+  /* Cada argumento con separador editorial a la izquierda */
+  .argumento {
+    position: relative;
+    padding-left: 24px;
+    border-left: 1.5px solid rgba(242, 84, 45, 0.25);
+    transition: border-color 0.25s ease;
+  }
+  .argumento:hover {
+    border-left-color: var(--color-primary);
+  }
+
   .argumento__lead {
+    position: relative;
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(22px, 3vw, 26px);

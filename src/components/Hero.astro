@@ -105,7 +105,10 @@ import WhatsAppButton from './WhatsAppButton.astro';
     overflow: hidden;
     padding-top: 128px;
     padding-bottom: clamp(64px, 10vw, 120px);
-    background: var(--color-bg);
+    /* Cambiar de fondo plano a gradiente radial atmosférico */
+    background: radial-gradient(ellipse 90% 70% at 65% 40%, rgba(242, 84, 45, 0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 10% 80%, rgba(30, 40, 80, 0.4) 0%, transparent 50%),
+                var(--color-bg);
   }
 
   .hero__wave {
@@ -114,7 +117,9 @@ import WhatsAppButton from './WhatsAppButton.astro';
     left: -10%;
     width: 130%;
     max-width: none;
-    opacity: 0.03;
+    /* Más visible pero elegante */
+    opacity: 0.055;
+    transform: rotate(-5deg) scale(1.1);
     pointer-events: none;
     user-select: none;
   }
@@ -130,7 +135,8 @@ import WhatsAppButton from './WhatsAppButton.astro';
   .hero__headline {
     font-weight: 800;
     font-size: clamp(36px, 5.2vw, 64px);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    line-height: 1;
   }
 
   .hero__sub {
@@ -142,9 +148,22 @@ import WhatsAppButton from './WhatsAppButton.astro';
 
   .hero__refuerzo {
     margin-top: 16px;
-    font-weight: 500;
-    font-size: 18px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
     color: var(--color-primary);
+    letter-spacing: -0.01em;
+    position: relative;
+    display: inline-block;
+  }
+  .hero__refuerzo::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-primary), transparent);
   }
 
   .hero__cta {

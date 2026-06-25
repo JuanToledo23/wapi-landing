@@ -8,6 +8,7 @@ const afirmaciones = [
 
 <section id="para-quien-es" class="paraquien section">
   <div class="paraquien__inner">
+    <div class="paraquien__eyebrow" aria-hidden="true"></div>
     <h2 class="paraquien__titulo reveal">
       Si recibes mensajes de clientes, Wapi es para ti.
     </h2>
@@ -34,6 +35,12 @@ const afirmaciones = [
     padding-inline: 24px;
     text-align: center;
   }
+  .paraquien__eyebrow {
+    width: 40px;
+    height: 2px;
+    background: var(--color-primary);
+    margin: 0 auto 24px;
+  }
   .paraquien__titulo {
     font-weight: 700;
     font-size: clamp(28px, 4.4vw, 40px);
@@ -48,14 +55,18 @@ const afirmaciones = [
     gap: 24px;
   }
   .paraquien__item {
-    font-size: 20px;
+    font-size: 19px;
     color: var(--color-text-secondary);
+    position: relative;
+    padding-left: 0;
   }
   .paraquien__remate {
-    margin-top: 48px;
+    margin-top: 56px;
     font-weight: 500;
-    font-size: 16px;
-    color: var(--color-text);
+    font-size: 17px;
+    color: var(--color-text-secondary);
     line-height: 1.6;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 32px;
   }
 </style>
